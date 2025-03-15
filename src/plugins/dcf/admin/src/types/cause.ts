@@ -21,4 +21,5 @@ export interface CreateCauseDto {
     name: string;
     description: string;
     donationGoal: number;
+    endDate: string;
 } 

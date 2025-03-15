@@ -40,7 +40,8 @@ export const CausesPage = () => {
     const [newCause, setNewCause] = useState<CreateCauseDto>({ 
         name: '', 
         description: '', 
-        donationGoal: 0 
+        donationGoal: 0,
+        endDate: '' 
     });
     const [pageSize] = useState(10);
     const [page, setPage] = useState(1);
@@ -81,7 +82,7 @@ export const CausesPage = () => {
             setIsSubmitting(true);
             await createNewCause(post, newCause);
             await loadData();
-            setNewCause({ name: '', description: '', donationGoal: 0 });
+            setNewCause({ name: '', description: '', donationGoal: 0, endDate: '' });
         } catch (error) {
             console.error(error);
         } finally {
@@ -147,6 +148,19 @@ export const CausesPage = () => {
                                                     donationGoal: parseInt(e.target.value) || 0 
                                                 }))}
                                                 value={newCause.donationGoal}
+                                            />
+                                        </Field.Root>
+                                    </Box>
+                                    <Box paddingTop={4}>
+                                        <Field.Root name="endDate" required>
+                                            <Field.Label>Date de fin</Field.Label>
+                                            <Field.Input
+                                                type="date"
+                                                onChange={(e: { target: { value: string } }) => setNewCause(prev => ({ 
+                                                    ...prev, 
+                                                    endDate: e.target.value 
+                                                }))}
+                                                value={newCause.endDate}
                                             />
                                         </Field.Root>
                                     </Box>

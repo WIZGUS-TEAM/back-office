@@ -6,7 +6,7 @@ console.log('!!lightTheme', !!lightTheme);
 
 export const CommonProviders: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-      <DesignSystemProvider theme={darkTheme}>
+      <DesignSystemProvider theme={lightTheme}>
           {children}
       </DesignSystemProvider>
   );
