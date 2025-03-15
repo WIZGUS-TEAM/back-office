@@ -17,17 +17,39 @@ export const SideNav = () => {
                         end>
                         Accueil
                     </SubNavLink>
+                </SubNavSection>
+                <SubNavSection key={1} label="Causes">
                     <SubNavLink
-                        key={2}
+                        key={11}
                         tag={NavLink}
                         to={{
                             pathname: '/plugins/dcf/causes',
                         }}
                     >
-                        Causes
+                        Toutes les causes
                     </SubNavLink>
                     <SubNavLink
-                        key={3}
+                        key={12}
+                        tag={NavLink}
+                        to={{
+                            pathname: '/plugins/dcf/active-causes',
+                        }}
+                    >
+                        Causes actives
+                    </SubNavLink>  
+                    <SubNavLink
+                        key={13}
+                        tag={NavLink}
+                        to={{
+                            pathname: '/plugins/dcf/pending-causes',
+                        }}
+                    >
+                        Causes en attente
+                    </SubNavLink>
+                </SubNavSection>
+                <SubNavSection key={2} label="Donations">
+                    <SubNavLink
+                        key={21}
                         tag={NavLink}
                         to={{
                             pathname: '/plugins/dcf/donations',

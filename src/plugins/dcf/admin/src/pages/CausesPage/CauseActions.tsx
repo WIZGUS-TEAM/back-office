@@ -114,68 +114,102 @@ const CauseActions = ({ documentId, state, onSuccess, cause }: CauseActionsProps
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Box padding={4}>
-              <Flex direction="column" gap={4}>
+            <Box padding={6} background="neutral100" hasRadius>
+              <Flex direction="column" gap={5}>
+                <Flex justifyContent="space-between" alignItems="center">
+                  <Typography variant="sigma" textColor="neutral600">
+                    Nom de la cause
+                  </Typography>
+                  <Typography variant="omega" fontWeight="bold">
+                    {cause?.name}
+                  </Typography>
+                </Flex>
+
                 <Box>
-                  <Typography variant="sigma">Nom</Typography>
-                  <Typography>{cause?.name}</Typography>
+                  <Typography variant="sigma" textColor="neutral600" style={{ marginBottom: '8px' }}>
+                    Description
+                  </Typography>
+                  <Box background="neutral0" padding={3} hasRadius>
+                    <Typography variant="omega">
+                      {cause?.description}
+                    </Typography>
+                  </Box>
                 </Box>
-                <Box>
-                  <Typography variant="sigma">Description</Typography>
-                  <Typography>{cause?.description}</Typography>
-                </Box>
-                <Box>
-                  <Typography variant="sigma">Objectif de donation</Typography>
-                  <Typography>{cause?.donationGoal?.toLocaleString('fr-DZ')} DZD</Typography>
-                </Box>
-                <Box>
-                  <Typography variant="sigma">Donations actuelles</Typography>
-                  <Typography>{cause?.currentDonations?.toLocaleString('fr-DZ')} DZD</Typography>
-                </Box>
-                <Box>
-                  <Typography variant="sigma">Date de fin</Typography>
-                  <Typography>{cause?.endDate}</Typography>
-                </Box>
-                <Box>
-                  <Typography variant="sigma">Statut</Typography>
-                  <Status variant={getStatusVariant(cause?.state || '')} size="S">
+
+                <Flex justifyContent="space-between" gap={4}>
+                  <Flex justifyContent="space-between" alignItems="center" style={{ flex: 1 }} background="neutral0" padding={3} hasRadius>
+                    <Typography variant="sigma" textColor="neutral600">
+                      Objectif
+                    </Typography>
+                    <Typography variant="omega" fontWeight="bold">
+                      {cause?.donationGoal?.toLocaleString('fr-DZ')} DZD
+                    </Typography>
+                  </Flex>
+                  
+                  <Flex justifyContent="space-between" alignItems="center" style={{ flex: 1 }} background="neutral0" padding={3} hasRadius>
+                    <Typography variant="sigma" textColor="neutral600">
+                      Montant collecté
+                    </Typography>
+                    <Typography variant="omega" fontWeight="bold">
+                      {cause?.currentDonations?.toLocaleString('fr-DZ')} DZD
+                    </Typography>
+                  </Flex>
+                </Flex>
+
+                <Flex justifyContent="space-between" alignItems="center">
+                  <Typography variant="sigma" textColor="neutral600">
+                    Date de fin
+                  </Typography>
+                  <Typography variant="omega">
+                    {new Date(cause?.endDate || '').toLocaleDateString('fr-FR', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric'
+                    })}
+                  </Typography>
+                </Flex>
+
+                <Flex justifyContent="space-between" alignItems="center">
+                  <Typography variant="sigma" textColor="neutral600">
+                    Statut
+                  </Typography>
+                  <Status variant={getStatusVariant(cause?.state || '')} size="M" style={{ padding: '6px 12px' }}>
                     <Typography fontWeight="bold">
                       {cause?.state}
                     </Typography>
                   </Status>
-                </Box>
+                </Flex>
+
                 <Box>
-                  <Typography variant="sigma">Progression</Typography>
-                  <Box background="neutral100" padding={2} hasRadius>
-                    <Flex gap={2} alignItems="center">
-                      <Box>
-                        <Typography variant="pi" textColor="neutral600">
-                          {cause?.currentDonations?.toLocaleString('fr-DZ')} / {cause?.donationGoal?.toLocaleString('fr-DZ')} DZD
-                        </Typography>
-                      </Box>
-                      <Box style={{ flex: 1, minWidth: '100px' }}>
-                        <Box
-                          background="neutral200"
-                          hasRadius
-                          style={{
-                            height: '6px',
-                            width: '100%',
-                            position: 'relative',
-                            overflow: 'hidden'
-                          }}
-                        >
-                          <Box
-                            background={(cause?.currentDonations || 0) >= (cause?.donationGoal || 0) ? "success500" : "primary600"}
-                            style={{
-                              height: '100%',
-                              width: `${Math.min(((cause?.currentDonations || 0) / (cause?.donationGoal || 1)) * 100, 100)}%`,
-                              position: 'absolute',
-                              transition: 'width 0.3s ease'
-                            }}
-                          />
-                        </Box>
-                      </Box>
-                    </Flex>
+                  <Flex justifyContent="space-between" alignItems="center" style={{ marginBottom: '8px' }}>
+                    <Typography variant="sigma" textColor="neutral600">
+                      Progression
+                    </Typography>
+                    <Typography variant="pi" fontWeight="bold">
+                      {cause?.currentDonations?.toLocaleString('fr-DZ')} / {cause?.donationGoal?.toLocaleString('fr-DZ')} DZD
+                    </Typography>
+                  </Flex>
+                  <Box background="neutral0" padding={3} hasRadius>
+                    <Box
+                      background="neutral200"
+                      hasRadius
+                      style={{
+                        height: '8px',
+                        width: '100%',
+                        position: 'relative',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      <Box
+                        background={(cause?.currentDonations || 0) >= (cause?.donationGoal || 0) ? "success500" : "primary600"}
+                        style={{
+                          height: '100%',
+                          width: `${Math.min(((cause?.currentDonations || 0) / (cause?.donationGoal || 1)) * 100, 100)}%`,
+                          position: 'absolute',
+                          transition: 'width 0.3s ease'
+                        }}
+                      />
+                    </Box>
                   </Box>
                 </Box>
               </Flex>
