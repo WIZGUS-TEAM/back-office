@@ -5,13 +5,13 @@
 import { factories } from '@strapi/strapi'
 
 export default factories.createCoreController('plugin::dcf.donation', ({ strapi }) => ({
-    async donate(ctx) {
+    async donate(ctx:any) {
         try {
-          const { donatorId, amount, causeId, companyCode } = ctx.request.body;
+          const { donatorId, amount, causeId, companyCode, date } = ctx.request.body;
           
           // Validation des champs requis
-          if (!donatorId || !amount || !causeId || !companyCode) {
-            return ctx.badRequest('Tous les champs sont requis: identifier, amount, causeId, companyCode');
+          if (!donatorId || !amount || !causeId || !companyCode || !date) {
+            return ctx.badRequest('Tous les champs sont requis: donatorId, amount, causeId, companyCode, date');
           }
     
           // Validation du montant
@@ -23,9 +23,10 @@ export default factories.createCoreController('plugin::dcf.donation', ({ strapi 
           const result = await strapi.documents('plugin::dcf.donation').create({
             data: {
               donatorIdentifier: donatorId,
-              amount,
+              amount: amount,
               cause: causeId,
               company: companyCode,
+              date: date,
             }
           });
           return result;
